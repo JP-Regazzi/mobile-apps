@@ -66,23 +66,42 @@
                                 </SwipeItems>
                             </SwipeView.RightItems>
 
-                            <Grid Padding="10" ColumnDefinitions="Auto,*,Auto" BackgroundColor="{AppThemeBinding Light=#ffffff, Dark=#1e1e1e}" Margin="0,6" >
+                            <Grid Padding="10"
+                                  ColumnDefinitions="Auto,*,Auto"
+                                  BackgroundColor="{AppThemeBinding Light=#ffffff, Dark=#1e1e1e}"
+                                  Margin="0,6">
+
                                 <Image Grid.Column="0"
                                        Source="{Binding Foto}"
                                        WidthRequest="56" HeightRequest="56"
                                        Aspect="AspectFit"/>
+
                                 <VerticalStackLayout Grid.Column="1" Spacing="2" Padding="10,0">
                                     <Label Text="{Binding Tipo}" FontAttributes="Bold" />
                                     <Label FontSize="12"
                                            Text="{Binding Repeticoes, StringFormat='Repetições: {0}'}" />
-                                    <Label FontSize="12"
+                                    <!-- Carga só quando > 0 -->
+                                    <Label x:Name="LblCarga"
+                                           FontSize="12"
                                            Text="{Binding Carga, StringFormat='Carga: {0} kg'}" />
                                 </VerticalStackLayout>
+
                                 <Label Grid.Column="2"
                                        Text="{Binding Data, StringFormat='{}{0:dd/MM}'}"
                                        VerticalOptions="Center"
                                        TextColor="Gray"/>
                             </Grid>
+
+                            <!-- Trigger para esconder a carga quando 0 -->
+                            <SwipeView.Triggers>
+                                <DataTrigger TargetType="SwipeView"
+                                             Binding="{Binding Carga}"
+                                             Value="0">
+                                    <Setter TargetName="LblCarga"
+                                            Property="Label.IsVisible"
+                                            Value="False" />
+                                </DataTrigger>
+                            </SwipeView.Triggers>
                         </SwipeView>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
