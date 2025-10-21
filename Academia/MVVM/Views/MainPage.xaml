@@ -71,6 +71,13 @@
                                   BackgroundColor="{AppThemeBinding Light=#ffffff, Dark=#1e1e1e}"
                                   Margin="0,6">
 
+                                <!-- TAP abre detalhes -->
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AbrirDetalheCommand}"
+                                        CommandParameter="{Binding .}" />
+                                </Grid.GestureRecognizers>
+
                                 <Image Grid.Column="0"
                                        Source="{Binding Foto}"
                                        WidthRequest="56" HeightRequest="56"
@@ -98,7 +105,7 @@
                                              Binding="{Binding Carga}"
                                              Value="0">
                                     <Setter TargetName="LblCarga"
-                                            Property="Label.IsVisible"
+                                            Property="IsVisible"
                                             Value="False" />
                                 </DataTrigger>
                             </SwipeView.Triggers>

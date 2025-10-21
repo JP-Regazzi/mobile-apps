@@ -22,10 +22,12 @@ public static class MauiProgram
         // ViewModels
         builder.Services.AddSingleton<MainViewModel>();
         builder.Services.AddTransient<AddExercicioViewModel>();
+        builder.Services.AddTransient<ExercicioDetailViewModel>();
 
         // Views
         builder.Services.AddSingleton<MainPage>();
         builder.Services.AddTransient<AddExercicioPage>();
+        builder.Services.AddTransient<ExercicioDetailPage>();
 
         return builder.Build();
 	}

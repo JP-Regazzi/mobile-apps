@@ -16,6 +16,14 @@ public partial class MainPage : ContentPage
         };
     }
 
+    // Recarrega quando a página volta a aparecer (ex.: após excluir nos detalhes)
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        if (BindingContext is MainViewModel mvm && mvm.CarregarCommand.CanExecute(null))
+            _ = mvm.CarregarCommand.ExecuteAsync(null);
+    }
+
     private async void DatePicker_DateSelected(object sender, DateChangedEventArgs e)
     {
         if (BindingContext is MainViewModel mvm && mvm.TrocarDataCommand.CanExecute(e.NewDate))

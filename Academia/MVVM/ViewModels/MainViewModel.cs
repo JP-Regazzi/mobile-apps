@@ -34,12 +34,14 @@ public class MainViewModel : ObservableObject
         set => SetProperty(ref _diasAnteriores, value);
     }
 
-    // Comandos explícitos (sem Source Generator)
     public IAsyncRelayCommand CarregarCommand { get; }
     public IAsyncRelayCommand<DateTime> TrocarDataCommand { get; }
     public IAsyncRelayCommand HojeCommand { get; }
     public IAsyncRelayCommand AdicionarCommand { get; }
     public IAsyncRelayCommand<Exercicio> ExcluirCommand { get; }
+
+    // NOVO: abrir detalhes ao tocar no item
+    public IAsyncRelayCommand<Exercicio> AbrirDetalheCommand { get; }
 
     public MainViewModel(IAcademiaDbService db, IServiceProvider services)
     {
@@ -51,6 +53,8 @@ public class MainViewModel : ObservableObject
         HojeCommand = new AsyncRelayCommand(HojeAsync);
         AdicionarCommand = new AsyncRelayCommand(AdicionarAsync);
         ExcluirCommand = new AsyncRelayCommand<Exercicio>(ExcluirAsync);
+
+        AbrirDetalheCommand = new AsyncRelayCommand<Exercicio>(AbrirDetalheAsync);
     }
 
     private async Task CarregarAsync()
@@ -85,6 +89,21 @@ public class MainViewModel : ObservableObject
         await _db.DeleteAsync(item);
         await AtualizarListaAsync();
         DiasAnteriores = await _db.GetDatasComRegistroAsync();
+    }
+
+    private async Task AbrirDetalheAsync(Exercicio item)
+    {
+        if (item is null) return;
+
+        var page = _services.GetService(typeof(Academia.MVVM.Views.ExercicioDetailPage)) as Page;
+        if (page is null) return;
+
+        if (page.BindingContext is Academia.MVVM.ViewModels.ExercicioDetailViewModel vm)
+        {
+            vm.SetExercicio(item);
+        }
+
+        await Shell.Current.Navigation.PushAsync(page);
     }
 
     private async Task AtualizarListaAsync()
