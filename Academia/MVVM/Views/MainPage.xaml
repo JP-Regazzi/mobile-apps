@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Academia.MVVM.Views.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Academia">
+
+    <ContentPage.Content>
+        <Grid Padding="20" RowDefinitions="Auto,Auto,Auto,*" RowSpacing="12">
+
+            <!-- Cabeçalho com data selecionada e total -->
+            <HorizontalStackLayout Grid.Row="0" Spacing="12" VerticalOptions="Center">
+                <Label Text="Data:" VerticalOptions="Center"/>
+                <DatePicker Date="{Binding DataSelecionada, Mode=TwoWay}"
+                            DateSelected="DatePicker_DateSelected"
+                            Format="dd/MM/yyyy"/>
+                <Button Text="Hoje"
+                        Command="{Binding HojeCommand}" />
+                <Label Text="{Binding TotalDoDia, StringFormat='Total do dia: {0}'}"
+                       FontAttributes="Bold"
+                       HorizontalOptions="EndAndExpand"
+                       VerticalOptions="Center" />
+            </HorizontalStackLayout>
+
+            <!-- Dias anteriores (atalhos) -->
+            <HorizontalStackLayout Grid.Row="1" Spacing="8"
+                                   BindableLayout.ItemsSource="{Binding DiasAnteriores}">
+                <Label Text="Dias anteriores:" VerticalOptions="Center" />
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Button Text="{Binding ., StringFormat='{}{0:dd/MM}'}"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.TrocarDataCommand}"
+                                CommandParameter="{Binding .}" />
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </HorizontalStackLayout>
+
+            <!-- Botão Adicionar -->
+            <Button Grid.Row="2"
+                    Text="Adicionar exercício"
+                    FontAttributes="Bold"
+                    HeightRequest="44"
+                    CornerRadius="8"
+                    Command="{Binding AdicionarCommand}"/>
+
+            <!-- Lista -->
+            <CollectionView Grid.Row="3"
+                            ItemsSource="{Binding Itens}"
+                            SelectionMode="None">
+                <CollectionView.EmptyView>
+                    <VerticalStackLayout Padding="20" Spacing="8" HorizontalOptions="Center" VerticalOptions="Center">
+                        <Image Source="yoga" WidthRequest="100" HeightRequest="100" Opacity="0.5"/>
+                        <Label Text="Nenhum exercício neste dia ainda." />
+                    </VerticalStackLayout>
+                </CollectionView.EmptyView>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems Mode="Reveal">
+                                    <SwipeItem Text="Excluir"
+                                               BackgroundColor="IndianRed"
+                                               Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ExcluirCommand}"
+                                               CommandParameter="{Binding .}"/>
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+
+                            <Grid Padding="10" ColumnDefinitions="Auto,*,Auto" BackgroundColor="{AppThemeBinding Light=#ffffff, Dark=#1e1e1e}" Margin="0,6" >
+                                <Image Grid.Column="0"
+                                       Source="{Binding Foto}"
+                                       WidthRequest="56" HeightRequest="56"
+                                       Aspect="AspectFit"/>
+                                <VerticalStackLayout Grid.Column="1" Spacing="2" Padding="10,0">
+                                    <Label Text="{Binding Tipo}" FontAttributes="Bold" />
+                                    <Label FontSize="12"
+                                           Text="{Binding Repeticoes, StringFormat='Repetições: {0}'}" />
+                                    <Label FontSize="12"
+                                           Text="{Binding Carga, StringFormat='Carga: {0} kg'}" />
+                                </VerticalStackLayout>
+                                <Label Grid.Column="2"
+                                       Text="{Binding Data, StringFormat='{}{0:dd/MM}'}"
+                                       VerticalOptions="Center"
+                                       TextColor="Gray"/>
+                            </Grid>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

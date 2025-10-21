@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Academia.MVVM.Views.AddExercicioPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Novo exercício">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="12">
+
+            <Image Source="{Binding Foto}" HeightRequest="140" Aspect="AspectFit" />
+
+            <Label Text="Foto" />
+            <Picker ItemsSource="{Binding OpcoesFoto}"
+                    SelectedItem="{Binding Foto}" />
+
+            <Label Text="Tipo" />
+            <Picker ItemsSource="{Binding OpcoesTipo}"
+                    SelectedItem="{Binding Tipo}" />
+
+            <Label Text="Repetições" />
+            <Stepper Minimum="0" Maximum="200" Increment="1"
+                     Value="{Binding Repeticoes, Mode=TwoWay}" />
+            <Entry Text="{Binding Repeticoes}" Keyboard="Numeric" />
+
+            <Label Text="Carga (kg)" />
+            <Slider Minimum="0" Maximum="200"
+                    Value="{Binding Carga, Mode=TwoWay}" />
+            <Entry Text="{Binding Carga}" Keyboard="Numeric" />
+
+            <Label Text="Data"/>
+            <DatePicker Date="{Binding Data, Mode=TwoWay}" Format="dd/MM/yyyy"/>
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="12" Margin="0,10,0,0">
+                <Button Text="Salvar"
+                        Grid.Column="0"
+                        BackgroundColor="#4CAF50" TextColor="White"
+                        Command="{Binding SalvarCommand}" />
+                <Button Text="Cancelar"
+                        Grid.Column="1"
+                        BackgroundColor="#9E9E9E" TextColor="White"
+                        Command="{Binding CancelarCommand}" />
+            </Grid>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
