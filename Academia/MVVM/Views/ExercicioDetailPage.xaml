@@ -5,49 +5,77 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     Title="Detalhes do exercício">
 
-    <ScrollView>
-        <VerticalStackLayout Padding="24" Spacing="16">
+    <!-- Layout em 3 linhas: info | botões | imagem grande -->
+    <Grid Padding="24" RowDefinitions="Auto,Auto,*" RowSpacing="16">
 
-            <Grid ColumnDefinitions="Auto,*" ColumnSpacing="16">
-                <Image Source="{Binding Item.Foto}" WidthRequest="72" HeightRequest="72" Aspect="AspectFit" />
-                <VerticalStackLayout>
-                    <Label Text="{Binding Item.Tipo}" FontSize="20" FontAttributes="Bold" />
-                    <Label Text="{Binding Item.Data, StringFormat='Data: {0:dd/MM/yyyy}'}" />
-                    <Label Text="{Binding Item.Repeticoes, StringFormat='Repetições: {0}'}" />
+        <!-- Informações do registro -->
+        <VerticalStackLayout Grid.Row="0" Spacing="4">
+            <Label Text="{Binding Item.Tipo}" FontSize="20" FontAttributes="Bold" />
+            <Label Text="{Binding Item.Data, StringFormat='Data: {0:dd/MM/yyyy}'}" />
 
-                    <!-- Mostra a carga só quando > 0 (trigger local, sem TargetName) -->
-                    <Label x:Name="LblCarga"
-                           Text="{Binding Item.Carga, StringFormat='Carga: {0} kg'}">
-                        <Label.Triggers>
-                            <DataTrigger TargetType="Label"
-                                         Binding="{Binding Item.Carga}"
-                                         Value="0">
-                                <Setter Property="IsVisible" Value="False" />
-                            </DataTrigger>
-                        </Label.Triggers>
-                    </Label>
-                </VerticalStackLayout>
-            </Grid>
+            <!-- Repetições (mostra se > 0) -->
+            <Label Text="{Binding Item.Repeticoes, StringFormat='Repetições: {0}'}">
+                <Label.Triggers>
+                    <DataTrigger TargetType="Label"
+                                 Binding="{Binding Item.Repeticoes}"
+                                 Value="0">
+                        <Setter Property="IsVisible" Value="False" />
+                    </DataTrigger>
+                </Label.Triggers>
+            </Label>
 
-            <Grid ColumnDefinitions="*,*" ColumnSpacing="12" Margin="0,12,0,0">
-                <Button Grid.Column="0"
-                        Text="Voltar"
-                        Command="{Binding VoltarCommand}" />
+            <!-- Duração (mostra se > 0) -->
+            <Label Text="{Binding Item.DuracaoMinutos, StringFormat='Duração: {0} min'}">
+                <Label.Triggers>
+                    <DataTrigger TargetType="Label"
+                                 Binding="{Binding Item.DuracaoMinutos}"
+                                 Value="0">
+                        <Setter Property="IsVisible" Value="False" />
+                    </DataTrigger>
+                </Label.Triggers>
+            </Label>
 
-                <ImageButton Grid.Column="1"
-                             Source="lixeira"
-                             BackgroundColor="#CD5C5C"
-                             CornerRadius="12"
-                             Padding="6"
-                             WidthRequest="72"
-                             HeightRequest="72"
-                             Aspect="AspectFit"
-                             HorizontalOptions="End"
-                             VerticalOptions="Center"
-                             Command="{Binding ExcluirCommand}" />
-                
-            </Grid>
-
+            <!-- Carga (mostra se > 0) -->
+            <Label Text="{Binding Item.Carga, StringFormat='Carga: {0} kg'}">
+                <Label.Triggers>
+                    <DataTrigger TargetType="Label"
+                                 Binding="{Binding Item.Carga}"
+                                 Value="0">
+                        <Setter Property="IsVisible" Value="False" />
+                    </DataTrigger>
+                </Label.Triggers>
+            </Label>
         </VerticalStackLayout>
-    </ScrollView>
+
+        <!-- Botões -->
+        <Grid Grid.Row="1" ColumnDefinitions="*,Auto" ColumnSpacing="12">
+            <Button Grid.Column="0"
+                    Text="Voltar"
+                    Command="{Binding VoltarCommand}" />
+
+            <ImageButton Grid.Column="1"
+                         Source="lixeira"
+                         BackgroundColor="#CD5C5C"
+                         CornerRadius="12"
+                         Padding="6"
+                         WidthRequest="72"
+                         HeightRequest="72"
+                         Aspect="AspectFit"
+                         HorizontalOptions="End"
+                         VerticalOptions="Center"
+                         Command="{Binding ExcluirCommand}" />
+        </Grid>
+
+        <!-- Imagem grande ocupando a metade de baixo -->
+        <Border Grid.Row="2"
+                BackgroundColor="{AppThemeBinding Light=#F4F4F4, Dark=#1F1F1F}"
+                StrokeShape="RoundRectangle 16"
+                Padding="12">
+            <Image Source="{Binding Item.Foto}"
+                   Aspect="AspectFit"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center" />
+        </Border>
+
+    </Grid>
 </ContentPage>

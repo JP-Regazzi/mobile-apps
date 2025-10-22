@@ -60,55 +60,70 @@
                             <SwipeView.RightItems>
                                 <SwipeItems Mode="Reveal">
                                     <SwipeItem Text="Excluir"
-                                               BackgroundColor="IndianRed"
-                                               Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ExcluirCommand}"
-                                               CommandParameter="{Binding .}"/>
+                               BackgroundColor="IndianRed"
+                               Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ExcluirCommand}"
+                               CommandParameter="{Binding .}"/>
                                 </SwipeItems>
                             </SwipeView.RightItems>
 
                             <Grid Padding="10"
-                                  ColumnDefinitions="Auto,*,Auto"
-                                  BackgroundColor="{AppThemeBinding Light=#ffffff, Dark=#1e1e1e}"
-                                  Margin="0,6">
+                  ColumnDefinitions="Auto,*,Auto"
+                  BackgroundColor="{AppThemeBinding Light=#ffffff, Dark=#1e1e1e}"
+                  Margin="0,6">
 
-                                <!-- TAP abre detalhes -->
                                 <Grid.GestureRecognizers>
                                     <TapGestureRecognizer
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AbrirDetalheCommand}"
-                                        CommandParameter="{Binding .}" />
+                        Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AbrirDetalheCommand}"
+                        CommandParameter="{Binding .}" />
                                 </Grid.GestureRecognizers>
 
                                 <Image Grid.Column="0"
-                                       Source="{Binding Foto}"
-                                       WidthRequest="56" HeightRequest="56"
-                                       Aspect="AspectFit"/>
+                       Source="{Binding Foto}"
+                       WidthRequest="56" HeightRequest="56"
+                       Aspect="AspectFit"/>
 
                                 <VerticalStackLayout Grid.Column="1" Spacing="2" Padding="10,0">
                                     <Label Text="{Binding Tipo}" FontAttributes="Bold" />
-                                    <Label FontSize="12"
-                                           Text="{Binding Repeticoes, StringFormat='Repetições: {0}'}" />
-                                    <!-- Carga só quando > 0 -->
+
+                                    <!-- Repetições (mostra se > 0) -->
+                                    <Label x:Name="LblReps"
+                           FontSize="12"
+                           Text="{Binding Repeticoes, StringFormat='Repetições: {0}'}">
+                                        <Label.Triggers>
+                                            <DataTrigger TargetType="Label" Binding="{Binding Repeticoes}" Value="0">
+                                                <Setter Property="IsVisible" Value="False"/>
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
+
+                                    <!-- Duração (mostra se > 0) -->
+                                    <Label x:Name="LblDur"
+                           FontSize="12"
+                           Text="{Binding DuracaoMinutos, StringFormat='Duração: {0} min'}">
+                                        <Label.Triggers>
+                                            <DataTrigger TargetType="Label" Binding="{Binding DuracaoMinutos}" Value="0">
+                                                <Setter Property="IsVisible" Value="False"/>
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
+
+                                    <!-- Carga (mostra se > 0) -->
                                     <Label x:Name="LblCarga"
-                                           FontSize="12"
-                                           Text="{Binding Carga, StringFormat='Carga: {0} kg'}" />
+                           FontSize="12"
+                           Text="{Binding Carga, StringFormat='Carga: {0} kg'}">
+                                        <Label.Triggers>
+                                            <DataTrigger TargetType="Label" Binding="{Binding Carga}" Value="0">
+                                                <Setter Property="IsVisible" Value="False"/>
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
                                 </VerticalStackLayout>
 
                                 <Label Grid.Column="2"
-                                       Text="{Binding Data, StringFormat='{}{0:dd/MM}'}"
-                                       VerticalOptions="Center"
-                                       TextColor="Gray"/>
+                       Text="{Binding Data, StringFormat='{}{0:dd/MM}'}"
+                       VerticalOptions="Center"
+                       TextColor="Gray"/>
                             </Grid>
-
-                            <!-- Trigger para esconder a carga quando 0 -->
-                            <SwipeView.Triggers>
-                                <DataTrigger TargetType="SwipeView"
-                                             Binding="{Binding Carga}"
-                                             Value="0">
-                                    <Setter TargetName="LblCarga"
-                                            Property="IsVisible"
-                                            Value="False" />
-                                </DataTrigger>
-                            </SwipeView.Triggers>
                         </SwipeView>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

@@ -9,14 +9,12 @@ public class AddExercicioViewModel : ObservableObject
 {
     private readonly IAcademiaDbService _db;
 
-    // Tipos disponíveis
     public List<string> OpcoesTipo { get; } = new()
     {
         "Supino", "Remada", "Agachamento", "Flexão",
         "Corrida", "Bicicleta", "Yoga"
     };
 
-    // Mapeia o Tipo (como aparece no Picker) para o nome da imagem (arquivo em Resources/Images)
     private static readonly Dictionary<string, string> TipoParaImagem = new(StringComparer.OrdinalIgnoreCase)
     {
         ["Supino"] = "supino",
@@ -28,8 +26,7 @@ public class AddExercicioViewModel : ObservableObject
         ["Yoga"] = "yoga",
     };
 
-    // Quais tipos NÃO têm carga
-    private static readonly HashSet<string> TiposSemCarga = new(StringComparer.OrdinalIgnoreCase)
+    private static readonly HashSet<string> TiposCardio = new(StringComparer.OrdinalIgnoreCase)
     {
         "Corrida", "Bicicleta", "Yoga"
     };
@@ -41,9 +38,7 @@ public class AddExercicioViewModel : ObservableObject
         set
         {
             if (SetProperty(ref _tipo, value))
-            {
-                AtualizarFotoECarga();
-            }
+                AtualizarCamposPorTipo();
         }
     }
 
@@ -61,6 +56,13 @@ public class AddExercicioViewModel : ObservableObject
         set => SetProperty(ref _carga, value);
     }
 
+    private int _duracaoMinutos = 0;
+    public int DuracaoMinutos
+    {
+        get => _duracaoMinutos;
+        set => SetProperty(ref _duracaoMinutos, value);
+    }
+
     private DateTime _data = DateTime.Today;
     public DateTime Data
     {
@@ -75,12 +77,26 @@ public class AddExercicioViewModel : ObservableObject
         set => SetProperty(ref _foto, value);
     }
 
-    // controla a UI (se mostra/edita Carga)
+    // Flags de UI
     private bool _cargaHabilitada = true;
     public bool CargaHabilitada
     {
         get => _cargaHabilitada;
         set => SetProperty(ref _cargaHabilitada, value);
+    }
+
+    private bool _repeticoesHabilitadas = true;
+    public bool RepeticoesHabilitadas
+    {
+        get => _repeticoesHabilitadas;
+        set => SetProperty(ref _repeticoesHabilitadas, value);
+    }
+
+    private bool _duracaoHabilitada = false;
+    public bool DuracaoHabilitada
+    {
+        get => _duracaoHabilitada;
+        set => SetProperty(ref _duracaoHabilitada, value);
     }
 
     public IAsyncRelayCommand SalvarCommand { get; }
@@ -89,24 +105,34 @@ public class AddExercicioViewModel : ObservableObject
     public AddExercicioViewModel(IAcademiaDbService db)
     {
         _db = db;
-        AtualizarFotoECarga(); // inicializa Foto/Carga conforme tipo padrão
-
+        AtualizarCamposPorTipo();
         SalvarCommand = new AsyncRelayCommand(SalvarAsync);
         CancelarCommand = new AsyncRelayCommand(CancelarAsync);
     }
 
-    private void AtualizarFotoECarga()
+    private void AtualizarCamposPorTipo()
     {
-        // Foto automática baseada no Tipo
-        if (!TipoParaImagem.TryGetValue(Tipo, out var img))
-            img = "halteres"; // fallback caso falte imagem
-        Foto = img;
+        // Foto automática
+        Foto = TipoParaImagem.TryGetValue(Tipo, out var img) ? img : "halteres";
 
-        // Carga habilitada só para exercícios de força
-        var semCarga = TiposSemCarga.Contains(Tipo);
-        CargaHabilitada = !semCarga;
-        if (semCarga)
-            Carga = 0; // força zero para cardio
+        var isCardio = TiposCardio.Contains(Tipo);
+
+        // Cardio: duração visível, repetições/carga desativadas
+        DuracaoHabilitada = isCardio;
+        RepeticoesHabilitadas = !isCardio;
+        CargaHabilitada = !isCardio;
+
+        if (isCardio)
+        {
+            Carga = 0;
+            Repeticoes = 0;
+            if (DuracaoMinutos <= 0) DuracaoMinutos = 10; // sugestão inicial
+        }
+        else
+        {
+            DuracaoMinutos = 0;
+            if (Repeticoes <= 0) Repeticoes = 10;
+        }
     }
 
     private async Task SalvarAsync()
@@ -117,13 +143,27 @@ public class AddExercicioViewModel : ObservableObject
             return;
         }
 
+        // Validação simples
+        var isCardio = TiposCardio.Contains(Tipo);
+        if (isCardio && DuracaoMinutos <= 0)
+        {
+            await Shell.Current.DisplayAlert("Atenção", "Informe a duração (minutos) para atividades de cardio.", "OK");
+            return;
+        }
+        if (!isCardio && Repeticoes <= 0)
+        {
+            await Shell.Current.DisplayAlert("Atenção", "Informe as repetições.", "OK");
+            return;
+        }
+
         var novo = new Exercicio
         {
             Tipo = Tipo.Trim(),
             Repeticoes = Math.Max(0, Repeticoes),
-            Carga = Math.Max(0, Carga), // para cardio já estará 0
+            Carga = Math.Max(0, Carga),
+            DuracaoMinutos = Math.Max(0, DuracaoMinutos),
             Data = Data.Date,
-            Foto = Foto // já vem do mapeamento acima
+            Foto = Foto
         };
 
         await _db.AddAsync(novo);

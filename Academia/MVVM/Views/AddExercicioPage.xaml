@@ -16,13 +16,23 @@
             <Picker ItemsSource="{Binding OpcoesTipo}"
                     SelectedItem="{Binding Tipo}" />
 
-            <!-- Repetições -->
-            <Label Text="Repetições" />
-            <Stepper Minimum="0" Maximum="200" Increment="1"
-                     Value="{Binding Repeticoes, Mode=TwoWay}" />
-            <Entry Text="{Binding Repeticoes}" Keyboard="Numeric" />
+            <!-- Repetições (somente força) -->
+            <VerticalStackLayout IsVisible="{Binding RepeticoesHabilitadas}">
+                <Label Text="Repetições" />
+                <Stepper Minimum="0" Maximum="200" Increment="1"
+                         Value="{Binding Repeticoes, Mode=TwoWay}" />
+                <Entry Text="{Binding Repeticoes}" Keyboard="Numeric" />
+            </VerticalStackLayout>
 
-            <!-- Carga (só visível quando aplicável) -->
+            <!-- Duração em minutos (somente cardio) -->
+            <VerticalStackLayout IsVisible="{Binding DuracaoHabilitada}">
+                <Label Text="Duração (minutos)" />
+                <Stepper Minimum="1" Maximum="300" Increment="1"
+                         Value="{Binding DuracaoMinutos, Mode=TwoWay}" />
+                <Entry Text="{Binding DuracaoMinutos}" Keyboard="Numeric" />
+            </VerticalStackLayout>
+
+            <!-- Carga (somente força) -->
             <VerticalStackLayout IsVisible="{Binding CargaHabilitada}">
                 <Label Text="Carga (kg)" />
                 <Slider Minimum="0" Maximum="200"

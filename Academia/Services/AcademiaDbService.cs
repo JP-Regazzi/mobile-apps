@@ -19,7 +19,14 @@ public class AcademiaDbService : IAcademiaDbService
 
     public async Task InitAsync()
     {
-        await GetConnectionAsync();
+        var db = await GetConnectionAsync();
+
+        // Migrar coluna nova se faltar
+        var info = await db.GetTableInfoAsync("exercicios");
+        if (!info.Any(c => c.Name == nameof(Exercicio.DuracaoMinutos)))
+        {
+            await db.ExecuteAsync($"ALTER TABLE exercicios ADD COLUMN {nameof(Exercicio.DuracaoMinutos)} INTEGER NOT NULL DEFAULT 0");
+        }
     }
 
     public async Task<List<DateTime>> GetDatasComRegistroAsync()
