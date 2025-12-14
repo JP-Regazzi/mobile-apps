@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="JogoDaForca.Views.GamePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Jogar">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="16">
+
+            <Image x:Name="HangImage" Source="forca1.png"
+                   HeightRequest="220" Aspect="AspectFit" />
+
+            <Label x:Name="LblCategoria" Text="Categoria"
+                   FontSize="18" HorizontalOptions="Center" />
+
+            <Label x:Name="LblPalavra"
+                   FontSize="32" HorizontalTextAlignment="Center"
+                   Text="__ __ __" />
+
+            <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*">
+                <!-- Se quiser imagens de fundo por linha, pode adicionar aqui (comentado no envio anterior) -->
+
+                <!-- Linha 1: Q..P -->
+                <HorizontalStackLayout x:Name="Row1" Grid.Row="0" Spacing="6" HeightRequest="32" HorizontalOptions="Center">
+                    <Button Text="Q" Clicked="OnKeyClicked" />
+                    <Button Text="W" Clicked="OnKeyClicked" />
+                    <Button Text="E" Clicked="OnKeyClicked" />
+                    <Button Text="R" Clicked="OnKeyClicked" />
+                    <Button Text="T" Clicked="OnKeyClicked" />
+                    <Button Text="Y" Clicked="OnKeyClicked" />
+                    <Button Text="U" Clicked="OnKeyClicked" />
+                    <Button Text="I" Clicked="OnKeyClicked" />
+                    <Button Text="O" Clicked="OnKeyClicked" />
+                    <Button Text="P" Clicked="OnKeyClicked" />
+                </HorizontalStackLayout>
+
+                <!-- Linha 2: A..L -->
+                <HorizontalStackLayout x:Name="Row2" Grid.Row="1" Spacing="6" HeightRequest="32" HorizontalOptions="Center">
+                    <Button Text="A" Clicked="OnKeyClicked" />
+                    <Button Text="S" Clicked="OnKeyClicked" />
+                    <Button Text="D" Clicked="OnKeyClicked" />
+                    <Button Text="F" Clicked="OnKeyClicked" />
+                    <Button Text="G" Clicked="OnKeyClicked" />
+                    <Button Text="H" Clicked="OnKeyClicked" />
+                    <Button Text="J" Clicked="OnKeyClicked" />
+                    <Button Text="K" Clicked="OnKeyClicked" />
+                    <Button Text="L" Clicked="OnKeyClicked" />
+                </HorizontalStackLayout>
+
+                <!-- Linha 3: Z..M -->
+                <HorizontalStackLayout x:Name="Row3" Grid.Row="2" Spacing="6" HeightRequest="32" HorizontalOptions="Center">
+                    <Button Text="Z" Clicked="OnKeyClicked" />
+                    <Button Text="X" Clicked="OnKeyClicked" />
+                    <Button Text="C" Clicked="OnKeyClicked" />
+                    <Button Text="V" Clicked="OnKeyClicked" />
+                    <Button Text="B" Clicked="OnKeyClicked" />
+                    <Button Text="N" Clicked="OnKeyClicked" />
+                    <Button Text="M" Clicked="OnKeyClicked" />
+                </HorizontalStackLayout>
+            </Grid>
+
+            <HorizontalStackLayout Spacing="12" HorizontalOptions="Center">
+                <Button Text="Jogar novamente" Clicked="OnRestartClicked" />
+                <Button Text="Sair ao menu"    Clicked="OnExitClicked" />
+            </HorizontalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

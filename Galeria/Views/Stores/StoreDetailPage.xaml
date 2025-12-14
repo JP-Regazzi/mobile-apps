@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Galeria.Views.Stores.StoreDetailPage"
+             BackgroundColor="#F5F5F5">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="0">
+
+            <!-- Banner -->
+            <Grid HeightRequest="260">
+                <Image Source="{Binding Banner}"
+                       Aspect="AspectFill"/>
+
+                <!-- Botão voltar (círculo) -->
+                <Border BackgroundColor="White"
+                        StrokeShape="RoundRectangle 18"
+                        WidthRequest="36"
+                        HeightRequest="36"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Start"
+                        Margin="16,40,0,0">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnBackTapped"/>
+                    </Border.GestureRecognizers>
+                    <Label Text="‹"
+                           FontSize="20"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"/>
+                </Border>
+            </Grid>
+
+            <!-- Cartão branco com conteúdo -->
+            <Frame Margin="0,-24,0,0"
+                   CornerRadius="24"
+                   Padding="24"
+                   HasShadow="False"
+                   BackgroundColor="White">
+                <VerticalStackLayout Spacing="16">
+
+                    <!-- Logo + título -->
+                    <Grid ColumnDefinitions="Auto,*"
+                          ColumnSpacing="16">
+                        <HorizontalStackLayout Spacing="12" VerticalOptions="Center" Margin="0,0,0,16">
+                            <Image Source="{Binding Logo}"
+                                WidthRequest="48"
+                                HeightRequest="48"
+                                Aspect="AspectFit" />
+                            <Label Text="{Binding Name}"
+                                FontSize="20"
+                                FontAttributes="Bold"
+                                VerticalOptions="Center"
+                                TextColor="#000000" />
+                        </HorizontalStackLayout>
+                    </Grid>
+
+                    <!-- Texto principal -->
+                    <Label Text="{Binding FullDescription}"
+                           FontSize="14"
+                           TextColor="#555"/>
+
+                    <!-- Localização -->
+                    <Grid ColumnDefinitions="Auto,*"
+                          ColumnSpacing="12"
+                          Margin="0,12,0,0">
+                        <Label Text="📍"
+                               FontSize="18"
+                               VerticalOptions="Start"/>
+                        <VerticalStackLayout Grid.Column="1" Spacing="2">
+                            <Label Text="Localização"
+                                   FontAttributes="Bold"
+                                   FontSize="14"/>
+                            <Label Text="{Binding Location}"
+                                   FontSize="14"
+                                   TextColor="#555"/>
+                        </VerticalStackLayout>
+                    </Grid>
+
+                    <!-- Telefone -->
+                    <Grid ColumnDefinitions="Auto,*"
+                          ColumnSpacing="12"
+                          Margin="0,12,0,0">
+                        <Label Text="📞"
+                               FontSize="18"
+                               VerticalOptions="Start"/>
+                        <VerticalStackLayout Grid.Column="1" Spacing="2">
+                            <Label Text="Telefone"
+                                   FontAttributes="Bold"
+                                   FontSize="14"/>
+                            <Label Text="{Binding Phone}"
+                                   FontSize="14"
+                                   TextColor="#555"/>
+                        </VerticalStackLayout>
+                    </Grid>
+
+                </VerticalStackLayout>
+            </Frame>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

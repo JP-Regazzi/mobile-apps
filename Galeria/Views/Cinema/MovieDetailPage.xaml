@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Galeria.Views.Cinema.MovieDetailPage"
+             BackgroundColor="#F5F5F5">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="0">
+
+            <Grid HeightRequest="260">
+                <Image Source="{Binding Banner}"
+                       Aspect="AspectFill"/>
+
+                <!-- Botão fechar -->
+                <Border BackgroundColor="White"
+                        StrokeShape="RoundRectangle 18"
+                        WidthRequest="36"
+                        HeightRequest="36"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Start"
+                        Margin="16,40,0,0">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnCloseTapped"/>
+                    </Border.GestureRecognizers>
+                    <Label Text="✕"
+                           FontSize="16"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"/>
+                </Border>
+
+                <!-- Duração -->
+                <Border BackgroundColor="#80000000"
+                        StrokeShape="RoundRectangle 14"
+                        Padding="8,4"
+                        HorizontalOptions="End"
+                        VerticalOptions="Start"
+                        Margin="0,40,16,0">
+                    <StackLayout Orientation="Horizontal" Spacing="4">
+                        <Image Source="icon_duration_clock.png"
+                               WidthRequest="14"
+                               HeightRequest="14"/>
+                        <Label Text="{Binding DurationText}"
+                               FontSize="12"
+                               TextColor="White"/>
+                    </StackLayout>
+                </Border>
+
+                <!-- Play / Pause -->
+                <Grid HorizontalOptions="Center"
+                      VerticalOptions="End"
+                      Margin="0,0,0,-24"
+                      ColumnDefinitions="Auto,Auto"
+                      ColumnSpacing="24">
+                    <Border StrokeShape="RoundRectangle 28"
+                            BackgroundColor="White"
+                            WidthRequest="56"
+                            HeightRequest="56">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnPlayTapped"/>
+                        </Border.GestureRecognizers>
+                        <Label Text="▶"
+                               TextColor="#FF6A00"
+                               FontSize="24"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"/>
+                    </Border>
+                    <Border Grid.Column="1"
+                            StrokeShape="RoundRectangle 28"
+                            BackgroundColor="White"
+                            WidthRequest="56"
+                            HeightRequest="56">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnPauseTapped"/>
+                        </Border.GestureRecognizers>
+                        <Label Text="⏸"
+                               TextColor="#FF6A00"
+                               FontSize="24"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"/>
+                    </Border>
+                </Grid>
+            </Grid>
+
+            <Frame Margin="0,-24,0,0"
+                   CornerRadius="24"
+                   Padding="24"
+                   HasShadow="False"
+                   BackgroundColor="White">
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="{Binding Title}"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           HorizontalTextAlignment="Center"/>
+                    <Label Text="{Binding Subtitle}"
+                           FontSize="14"
+                           TextColor="#777"
+                           HorizontalTextAlignment="Center"/>
+
+                    <Label Text="{Binding Synopsis}"
+                           FontSize="14"
+                           TextColor="#555"/>
+                </VerticalStackLayout>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

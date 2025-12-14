@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Galeria.Views.Tickets.TicketResultPage"
+             BackgroundColor="#F5F5F5">
+
+    <VerticalStackLayout Padding="16,20" Spacing="24">
+
+        <Label Text="ESTACIONAMENTO"
+               FontSize="24"
+               FontAttributes="Bold"
+               TextColor="#FF6A00"/>
+
+        <Frame BorderColor="#CCCCCC"
+               BackgroundColor="Transparent"
+               Padding="16"
+               HasShadow="False">
+            <VerticalStackLayout Spacing="4">
+                <Label Text="{Binding Code, StringFormat='Ticket #{0}'}"
+                       FontAttributes="Bold"/>
+                <Label Text="{Binding DurationText}"/>
+                <Label Text="{Binding EntryText, StringFormat='Entrada: {0}'}"/>
+                <Label Text="{Binding ExitText, StringFormat='Saída: {0}'}"/>
+                <Label Text="{Binding PriceText, StringFormat='Valor: {0}'}"
+                       FontAttributes="Bold"/>
+            </VerticalStackLayout>
+        </Frame>
+
+        <Label Text="Pagamento aprovado"
+               FontSize="20"
+               TextColor="Green"
+               HorizontalOptions="Center"/>
+
+        <VerticalStackLayout HorizontalOptions="Center"
+                             Spacing="4">
+            <Label Text="Tolerância"
+                   FontSize="14"
+                   TextColor="#777"
+                   HorizontalTextAlignment="Center"/>
+            <Label Text="30 min"
+                   FontSize="32"
+                   FontAttributes="Bold"
+                   TextColor="#FF6A00"
+                   HorizontalTextAlignment="Center"/>
+            <Label Text="até 15:30h"
+                   FontSize="14"
+                   TextColor="#777"
+                   HorizontalTextAlignment="Center"/>
+        </VerticalStackLayout>
+    </VerticalStackLayout>
+</ContentPage>

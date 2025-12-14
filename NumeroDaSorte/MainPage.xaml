@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NumeroDaSorte.MainPage"
+             Title="Número da sorte">
+
+    <!-- Grid de uma célula só, para conseguir centralizar bem -->
+    <Grid Padding="30">
+        <VerticalStackLayout
+            Spacing="40"
+            HorizontalOptions="CenterAndExpand"
+            VerticalOptions="CenterAndExpand">
+
+            <!-- Ícone do trevo -->
+            <Image Source="trevo.png"
+                   HeightRequest="120"
+                   HorizontalOptions="Center" />
+
+            <!-- Título inicial -->
+            <Label x:Name="TituloLabel"
+                   Text="Número da sorte"
+                   TextColor="{StaticResource TextPrimary}"
+                   FontSize="16"
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center" />
+
+            <!-- Bloco de resultado (inicialmente escondido) -->
+            <VerticalStackLayout x:Name="ResultadoLayout"
+                                 Spacing="20"
+                                 IsVisible="False"
+                                 HorizontalOptions="Center"
+                                 VerticalOptions="Center">
+
+                <Label Text="O número da sorte é:"
+                       TextColor="{StaticResource TextPrimary}"
+                       FontSize="14"
+                       HorizontalOptions="Center"
+                       HorizontalTextAlignment="Center" />
+
+                <!-- Linha de números -->
+                <HorizontalStackLayout Spacing="10"
+                                       HorizontalOptions="Center">
+
+                    <Border Stroke="{StaticResource ResultBorder}"
+                            StrokeThickness="1"
+                            BackgroundColor="{StaticResource ResultBackground}"
+                            Padding="10"
+                            StrokeShape="RoundRectangle 10"
+                            HorizontalOptions="Center">
+                        <Label x:Name="Num1Label"
+                               Style="{StaticResource SmallLabel}" />
+                    </Border>
+
+                    <Border Stroke="{StaticResource ResultBorder}"
+                            StrokeThickness="1"
+                            BackgroundColor="{StaticResource ResultBackground}"
+                            Padding="10"
+                            StrokeShape="RoundRectangle 10"
+                            HorizontalOptions="Center">
+                        <Label x:Name="Num2Label"
+                               Style="{StaticResource SmallLabel}" />
+                    </Border>
+
+                    <Border Stroke="{StaticResource ResultBorder}"
+                            StrokeThickness="1"
+                            BackgroundColor="{StaticResource ResultBackground}"
+                            Padding="10"
+                            StrokeShape="RoundRectangle 10"
+                            HorizontalOptions="Center">
+                        <Label x:Name="Num3Label"
+                               Style="{StaticResource SmallLabel}" />
+                    </Border>
+
+                    <Border Stroke="{StaticResource ResultBorder}"
+                            StrokeThickness="1"
+                            BackgroundColor="{StaticResource ResultBackground}"
+                            Padding="10"
+                            StrokeShape="RoundRectangle 10"
+                            HorizontalOptions="Center">
+                        <Label x:Name="Num4Label"
+                               Style="{StaticResource SmallLabel}" />
+                    </Border>
+
+                    <Border Stroke="{StaticResource ResultBorder}"
+                            StrokeThickness="1"
+                            BackgroundColor="{StaticResource ResultBackground}"
+                            Padding="10"
+                            StrokeShape="RoundRectangle 10"
+                            HorizontalOptions="Center">
+                        <Label x:Name="Num5Label"
+                               Style="{StaticResource SmallLabel}" />
+                    </Border>
+
+                </HorizontalStackLayout>
+
+                <Label Text="Boa sorte!"
+                       TextColor="{StaticResource TextPrimary}"
+                       FontSize="14"
+                       HorizontalOptions="Center"
+                       HorizontalTextAlignment="Center" />
+            </VerticalStackLayout>
+
+            <!-- Botão -->
+            <Button Text="Gerar número da sorte"
+                    HorizontalOptions="Center"
+                    Clicked="OnGerarNumeroClicked" />
+
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

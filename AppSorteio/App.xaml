@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppSorteio.App">
+    <Application.Resources>
+
+        <!-- Cor principal do app (verde claro) -->
+        <Color x:Key="PrimaryColor">#4CAF50</Color>
+        <Color x:Key="PageBackground">#F5F5F5</Color>
+        <Color x:Key="TextGray">#777777</Color>
+
+        <!-- Estilo padrão de botão -->
+        <Style TargetType="Button">
+            <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColor}" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="CornerRadius" Value="12" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="HeightRequest" Value="56" />
+        </Style>
+
+        <!-- Editor com borda leve dentro de Frame -->
+        <Style TargetType="Editor">
+            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="Black" />
+        </Style>
+
+    </Application.Resources>
+</Application>

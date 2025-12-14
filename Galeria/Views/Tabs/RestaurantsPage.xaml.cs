@@ -1,0 +1,54 @@
+using System.Collections.ObjectModel;
+using Galeria.Data;
+using Galeria.Models;
+
+namespace Galeria.Views.Tabs;
+
+public partial class RestaurantsPage : ContentPage
+{
+    private readonly List<Store> _allStores;
+    public ObservableCollection<Store> Stores { get; } = new();
+
+    public RestaurantsPage()
+    {
+        InitializeComponent();
+        NavigationPage.SetHasNavigationBar(this, false);
+
+        _allStores = MallRepository.GetStoresByType(StoreType.Restaurant).ToList();
+
+        BindingContext = this;
+        LoadStores(_allStores);
+    }
+
+    private void LoadStores(IEnumerable<Store> stores)
+    {
+        Stores.Clear();
+        foreach (var s in stores)
+            Stores.Add(s);
+    }
+
+    private void OnSearchBarTextChanged(object sender, EventArgs e)
+    {
+        var text = StoreSearchBar.Text?.Trim() ?? string.Empty;
+
+        if (string.IsNullOrWhiteSpace(text))
+        {
+            LoadStores(_allStores);
+        }
+        else
+        {
+            var filtered = _allStores
+                .Where(s => s.Name.Contains(text, StringComparison.OrdinalIgnoreCase));
+            LoadStores(filtered);
+        }
+    }
+
+    // Igual ao de StoresPage, reaproveitado
+    private async void OnStoreTapped(object sender, TappedEventArgs e)
+    {
+        if (sender is Frame frame && frame.BindingContext is Store store)
+        {
+            await Navigation.PushAsync(new Views.Stores.StoreDetailPage(store));
+        }
+    }
+}

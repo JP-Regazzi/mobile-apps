@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="JogoDaForca.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Jogo da Forca">
+
+    <VerticalStackLayout Padding="24" Spacing="20"
+                         VerticalOptions="Center" HorizontalOptions="Center">
+
+        <Image Source="forca1.png" WidthRequest="180" HeightRequest="180" Aspect="AspectFit" />
+        <Label Text="Jogo da Forca" FontSize="28" HorizontalOptions="Center" />
+
+        <Button Text="Jogar" Clicked="OnPlayClicked" WidthRequest="220" />
+        <Button Text="Sair"  Clicked="OnExitClicked"  WidthRequest="220" />
+    </VerticalStackLayout>
+</ContentPage>

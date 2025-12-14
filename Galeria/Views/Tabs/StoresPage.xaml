@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Galeria.Views.Tabs.StoresPage"
+             BackgroundColor="#F5F5F5"
+             Title="Lojas">
+
+    <Grid RowDefinitions="Auto,Auto,*"
+          Padding="16,20">
+
+        <!-- Título -->
+        <Label Text="Lojas/Restaurante"
+               FontSize="22"
+               FontAttributes="Bold"
+               TextColor="#333"/>
+
+        <!-- SearchBar -->
+        <SearchBar x:Name="StoreSearchBar"
+                   Grid.Row="1"
+                   Placeholder="Pesquisa por loja"
+                   BackgroundColor="White"
+                   Margin="0,12,0,16"
+                   TextChanged="OnSearchBarTextChanged"
+                   SearchButtonPressed="OnSearchBarTextChanged"/>
+
+        <!-- Lista -->
+        <CollectionView Grid.Row="2"
+                        ItemsSource="{Binding Stores}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Margin="0,0,0,12"
+                           Padding="16"
+                           HasShadow="False"
+                           BackgroundColor="White"
+                           CornerRadius="8">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnStoreTapped" />
+                        </Frame.GestureRecognizers>
+
+                        <Grid ColumnDefinitions="Auto,*"
+                              ColumnSpacing="16">
+                            <Image Grid.Column="0"
+                                   WidthRequest="64"
+                                   HeightRequest="64"
+                                   Aspect="AspectFit"
+                                   Source="{Binding Logo}" />
+                            <VerticalStackLayout Grid.Column="1"
+                                                 Spacing="4">
+                                <Label Text="{Binding Name}"
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       TextColor="#222" />
+                                <Label Text="{Binding ShortDescription}"
+                                       FontSize="12"
+                                       TextColor="#777"
+                                       LineBreakMode="TailTruncation"
+                                       MaxLines="2" />
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </Grid>
+</ContentPage>

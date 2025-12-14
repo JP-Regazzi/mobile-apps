@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:views="clr-namespace:Galeria.Views.Tabs"
+            x:Class="Galeria.Views.MainTabbedPage"
+            NavigationPage.HasNavigationBar="False">
+
+    <!-- LOJAS -->
+    <NavigationPage Title="Lojas"
+                    IconImageSource="tab_lojas.png">
+        <x:Arguments>
+            <views:StoresPage />
+        </x:Arguments>
+    </NavigationPage>
+
+    <!-- RESTAURANTES -->
+    <NavigationPage Title="Restaurantes"
+                    IconImageSource="tab_restaurantes.png">
+        <x:Arguments>
+            <views:RestaurantsPage />
+        </x:Arguments>
+    </NavigationPage>
+
+    <!-- CINEMA -->
+    <NavigationPage Title="Cinema"
+                    IconImageSource="tab_cinema.png">
+        <x:Arguments>
+            <views:CinemaPage />
+        </x:Arguments>
+    </NavigationPage>
+
+    <!-- TICKET -->
+    <NavigationPage Title="Ticket"
+                    IconImageSource="tab_ticket.png">
+        <x:Arguments>
+            <views:TicketScanPage />
+        </x:Arguments>
+    </NavigationPage>
+
+</TabbedPage>

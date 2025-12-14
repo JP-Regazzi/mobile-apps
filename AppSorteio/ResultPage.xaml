@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppSorteio.ResultPage"
+             BackgroundColor="White"
+             Title="Voltar">
+
+    <!-- Deixamos a barra de navegação padrão do NavigationPage,
+         que já mostra a seta de voltar + o texto "Voltar" -->
+
+    <ContentPage.Content>
+        <Grid Padding="24">
+
+            <VerticalStackLayout
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="CenterAndExpand"
+                Spacing="16">
+
+                <Label Text="O Sorteado foi:"
+                       FontSize="14"
+                       TextColor="{StaticResource TextGray}"
+                       HorizontalOptions="Center" />
+
+                <Label x:Name="WinnerLabel"
+                       FontSize="22"
+                       FontAttributes="Bold"
+                       TextColor="{StaticResource PrimaryColor}"
+                       HorizontalTextAlignment="Center"
+                       HorizontalOptions="Center"
+                       Margin="16,0" />
+            </VerticalStackLayout>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

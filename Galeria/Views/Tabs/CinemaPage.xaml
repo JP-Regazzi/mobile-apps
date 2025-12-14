@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Galeria.Views.Tabs.CinemaPage"
+             BackgroundColor="#F5F5F5"
+             Title="Cinema">
+
+    <Grid Padding="16,20"
+          RowDefinitions="Auto,Auto,*">
+
+        <Label Text="Cinema"
+               FontSize="22"
+               TextColor="#333"/>
+
+        <Label Grid.Row="1"
+               Text="Em cartaz"
+               FontSize="14"
+               TextColor="#777"
+               Margin="0,4,0,12"/>
+
+        <CollectionView Grid.Row="2"
+                        ItemsSource="{Binding Movies}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame HasShadow="False"
+                           CornerRadius="16"
+                           Padding="0"
+                           Margin="0,0,0,16">
+
+                        <!-- torna o card clicável -->
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnMovieTapped" />
+                        </Frame.GestureRecognizers>
+
+                        <Grid RowDefinitions="Auto,Auto"
+                              BackgroundColor="White">
+                            <Image Grid.Row="0"
+                                   Aspect="AspectFill"
+                                   HeightRequest="260"
+                                   Source="{Binding Poster}" />
+                            <StackLayout Grid.Row="1"
+                                         Padding="12,8"
+                                         Spacing="2">
+                                <Label Text="{Binding Title}"
+                                       FontSize="14"
+                                       FontAttributes="Bold"
+                                       HorizontalTextAlignment="Center"/>
+                                <Label Text="{Binding Subtitle}"
+                                       FontSize="12"
+                                       TextColor="#777"
+                                       HorizontalTextAlignment="Center"/>
+
+                                <Grid HorizontalOptions="Center"
+                                      ColumnDefinitions="Auto,Auto"
+                                      ColumnSpacing="4"
+                                      Margin="0,8,0,0">
+                                    <Image Source="icon_duration_clock.png"
+                                           WidthRequest="16"
+                                           HeightRequest="16"/>
+                                    <Label Grid.Column="1"
+                                           Text="{Binding DurationText}"
+                                           FontSize="12"
+                                           TextColor="#777"/>
+                                </Grid>
+                            </StackLayout>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

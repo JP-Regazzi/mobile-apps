@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppSorteio.ParticipantsPage"
+             BackgroundColor="{StaticResource PageBackground}"
+             Title="">
+
+    <ContentPage.Content>
+        <Grid Padding="24">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!-- Título -->
+            <Label Grid.Row="0"
+                   Text="Digite o nome dos participantes:"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   Margin="0,0,0,4" />
+
+            <!-- Subtítulo -->
+            <Label Grid.Row="1"
+                   Text="(1 nome por linha)"
+                   FontSize="12"
+                   TextColor="{StaticResource TextGray}"
+                   Margin="0,0,0,16" />
+
+            <!-- Caixa de nomes dentro de um card branco -->
+            <Frame Grid.Row="2"
+                   BackgroundColor="White"
+                   CornerRadius="12"
+                   HasShadow="False"
+                   Padding="12">
+                <Editor x:Name="NamesEditor"
+                        Placeholder="Nome dos candidatos"
+                        AutoSize="TextChanges" />
+            </Frame>
+
+            <!-- Botão Sortear -->
+            <Button Grid.Row="3"
+                    Text="Sortear"
+                    Margin="0,24,0,0"
+                    Clicked="OnSortearClicked" />
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

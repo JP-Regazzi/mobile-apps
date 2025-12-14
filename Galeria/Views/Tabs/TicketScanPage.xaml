@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Galeria.Views.Tabs.TicketScanPage"
+             BackgroundColor="#F5F5F5"
+             Title="Ticket">
+
+    <Grid Padding="16,20"
+          RowDefinitions="Auto,Auto,*">
+
+        <Label Text="Pague o seu"
+               FontSize="22"
+               TextColor="#333"/>
+
+        <Label Grid.Row="1"
+               Text="ESTACIONAMENTO"
+               FontSize="22"
+               FontAttributes="Bold"
+               TextColor="#FF6A00"
+               Margin="0,-4,0,20"/>
+
+        <VerticalStackLayout Grid.Row="2"
+                             Spacing="24">
+
+            <Grid HeightRequest="48"
+                  BackgroundColor="White"
+                  Padding="12,0"
+                  ColumnDefinitions="*,Auto"
+                  VerticalOptions="Start">
+
+                <Entry x:Name="TicketCodeEntry"
+                       Placeholder="Escanear ticket"
+                       Keyboard="Numeric"
+                       Completed="OnTicketCodeCompleted"
+                       VerticalOptions="Center"/>
+
+                <ImageButton Grid.Column="1"
+                             Source="icon_scan_camera.png"
+                             BackgroundColor="Transparent"
+                             Clicked="OnCameraClicked"/>
+            </Grid>
+
+            <Button Text="Tickets pagos"
+                    HeightRequest="52"
+                    CornerRadius="26"
+                    BackgroundColor="#FF6A00"
+                    TextColor="White"
+                    Clicked="OnPaidTicketsClicked"/>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

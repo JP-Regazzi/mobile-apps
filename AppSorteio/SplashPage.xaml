@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppSorteio.SplashPage"
+             BackgroundColor="{StaticResource PrimaryColor}"
+             NavigationPage.HasNavigationBar="False">
+
+    <Grid>
+
+        <!-- Qualquer toque no grid chama o evento OnSplashTapped -->
+        <Grid.GestureRecognizers>
+            <TapGestureRecognizer Tapped="OnSplashTapped" />
+        </Grid.GestureRecognizers>
+
+        <VerticalStackLayout
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            Spacing="24">
+
+            <!-- Círculo com ícone -->
+            <Frame Padding="32"
+                   CornerRadius="100"
+                   HasShadow="False"
+                   BackgroundColor="Transparent"
+                   BorderColor="White">
+                <Image Source="sorteio_icon_white.png"
+                       WidthRequest="80"
+                       HeightRequest="80"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Frame>
+
+            <Label Text="Sorteio"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   TextColor="White"
+                   HorizontalOptions="Center" />
+        </VerticalStackLayout>
+
+    </Grid>
+</ContentPage>
